@@ -16,21 +16,19 @@ const play = () => {
   }, 500);
 }
 
-
-
 </script>
 
 <template>
   <main>
     <div class="plus">
       <TransitionGroup tag="ul" name="list">
-        <li v-for="(item, index) in itmes" :key="item" :data-index="index">
+        <li style="color: #e6b422" v-for="(item, index) in itmes" :key="item" :data-index="index">
           功德+1
         </li>
       </TransitionGroup>
     </div>
     <div class="muyu" @mousedown="play"></div>
-    <div>
+    <div style="color: #e6b422;font-weight: bold;">
       功德：{{ count }}
     </div>
   </main>
@@ -57,6 +55,11 @@ main {
   .plus {
     position: absolute;
     margin-bottom: 20rem;
+
+    ul {
+      padding: 0;
+      margin: 0;
+    }
 
     li {
       list-style: none;
