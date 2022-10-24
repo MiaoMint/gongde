@@ -1,6 +1,6 @@
 {
   "name": "vue-gongde",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -11,8 +11,7 @@
   "dependencies": {
     "node-scss": "^7.0.3",
     "scss": "^0.2.4",
-    "vue": "^3.2.41",
-    "vue-router": "^4.1.5"
+    "vue": "^3.2.41"
   },
   "devDependencies": {
     "@types/node": "^16.11.68",
