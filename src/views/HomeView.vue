@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import { ref } from "vue";
+const voice = ref<HTMLAudioElement>()
+
+const play = () => {
+  voice.value?.play();
+}
 </script>
 
 <template>
   <main>
-    <div class="muyu">
-
-    </div>
+    <div class="muyu" @click="play"></div>
+    <audio src="/mp3/muyu.mp3" ref="voice"></audio>
   </main>
 </template>
 
@@ -29,7 +34,7 @@ main {
       transform: scale(1.4)
     }
 
-    &:active{
+    &:active {
       transform: scale(0.4)
     }
   }
