@@ -9,6 +9,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "gsap": "^3.11.3",
     "node-scss": "^7.0.3",
     "scss": "^0.2.4",
     "vue": "^3.2.41",
