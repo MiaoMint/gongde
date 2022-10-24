@@ -56,14 +56,18 @@ main {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  .plus{
+
+  .plus {
     position: absolute;
     margin-bottom: 20rem;
-    li{
+
+    li {
       list-style: none;
     }
   }
+
   .muyu {
+    cursor: url("/img/cursor.png") ,pointer;
     background-image: url("/img/muyu.png");
     background-position: center;
     background-repeat: no-repeat;
@@ -71,6 +75,7 @@ main {
     width: 300px;
     height: 300px;
     transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+
     &:hover {
       transform: scale(1.4)
     }
