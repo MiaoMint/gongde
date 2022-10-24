@@ -67,6 +67,8 @@ main {
   }
 
   .muyu {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     cursor: url("/img/cursor.png"), pointer;
     background-image: url("/img/muyu.png");
     background-position: center;
@@ -74,16 +76,17 @@ main {
     background-size: 100%;
     width: 300px;
     height: 300px;
-    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 
     &:hover {
-      transform: scale(1.4)
+      transform: scale(1.2)
     }
 
     &:active {
-      transform: scale(0.4)
+      transform: scale(0.6)
     }
   }
 
 }
+
 </style>
