@@ -1,61 +1,58 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
-import gsap from 'gsap'
+import { computed, ref, watch } from "vue";
 const itmes = ref<Array<number>>([])
+const count = ref<number>()
+
+count.value = Number(window.localStorage.getItem("gongde"))
 
 const play = () => {
+  window.localStorage.setItem("gongde", String(++count.value!))
   const voice = new Audio('/mp3/muyu.mp3');
   voice.play();
-  itmes.value.push(0);
+  itmes.value.push(Math.random());
+
   setTimeout(() => {
     itmes.value.shift()
   }, 500);
 }
 
 
-const onBeforeEnter = (el: { style: { opacity: number; height: number; }; }) => {
-  el.style.opacity = 0
-  el.style.height = 0
-}
 
-const onEnter = (el: { dataset: { index: number; }; }, done: any) => {
-  gsap.to(el, {
-    opacity: 1,
-    height: '1.6em',
-    delay: el.dataset.index * 0.15,
-    onComplete: done
-  })
-}
-
-const onLeave = (el: { dataset: { index: number; }; }, done: any) => {
-  gsap.to(el, {
-    opacity: 0,
-    height: 0,
-    delay: el.dataset.index * 0.15,
-    onComplete: done
-  })
-}
 </script>
 
 <template>
   <main>
     <div class="plus">
-      <TransitionGroup tag="ul" :css="false" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave">
-        <li v-for="(item, index) in itmes" :key="index" :data-index="index">
+      <TransitionGroup tag="ul" name="list">
+        <li v-for="(item, index) in itmes" :key="item" :data-index="index">
           功德+1
         </li>
       </TransitionGroup>
     </div>
     <div class="muyu" @mousedown="play"></div>
+    <div>
+      功德：{{ count }}
+    </div>
   </main>
 </template>
 
 <style scoped lang="scss">
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+}
+
 main {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  flex-direction: column;
 
   .plus {
     position: absolute;
@@ -67,7 +64,7 @@ main {
   }
 
   .muyu {
-    cursor: url("/img/cursor.png") ,pointer;
+    cursor: url("/img/cursor.png"), pointer;
     background-image: url("/img/muyu.png");
     background-position: center;
     background-repeat: no-repeat;
