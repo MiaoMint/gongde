@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
-const items = ref<Array<string>>([])
+const items = ref<Array<{ id: number, text: String }>>([])
 const count = ref<number>(Number(localStorage.getItem("gongde")))
 const fozuText = ref<string>("扣1佛祖陪你笑")
 
 
 const danmaku = (text: string) => {
-  items.value.push(text)
-
+  items.value.push({ id: Math.random(), text })
   setTimeout(() => {
     items.value.shift()
   }, 500)
@@ -42,8 +41,8 @@ document.addEventListener('keypress', (event) => {
   <main>
     <div class="plus">
       <TransitionGroup tag="ul" name="list">
-        <li style="color: #e6b422" v-for="(item, index) in items" :key="item" :data-index="index">
-          {{ item }}
+        <li style="color: #e6b422" v-for="(item, index) in items" :key="item.id" :data-index="index">
+          {{ item.text }}
         </li>
       </TransitionGroup>
     </div>
