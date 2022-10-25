@@ -4,8 +4,6 @@ const items = ref<Array<string>>([])
 const count = ref<number>(Number(localStorage.getItem("gongde")))
 const fozuText = ref<string>("扣1佛祖陪你笑")
 
-const muyuVoice = new Audio('/mp3/muyu.mp3');
-const fozuVoice = new Audio('/mp3/fozu.wav')
 
 const danmaku = (text: string) => {
   items.value.push(text)
@@ -16,12 +14,14 @@ const danmaku = (text: string) => {
 }
 
 const play = () => {
+  const muyuVoice = new Audio('/mp3/muyu.mp3');
   localStorage.setItem("gongde", String(++count.value))
   muyuVoice.play();
   danmaku("功德+1")
 }
 
 const laugh = () => {
+  const fozuVoice = new Audio('/mp3/fozu.wav')
   if (Number(localStorage.getItem("gongde")) >= 10) {
     count.value -= 10
     localStorage.setItem("gongde", String(count.value))
