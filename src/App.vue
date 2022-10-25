@@ -1,35 +1,58 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
-const itmes = ref<Array<number>>([])
-const count = ref<number>()
+import { ref } from "vue";
+const items = ref<Array<string>>([])
+const count = ref<number>(Number(localStorage.getItem("gongde")))
+const fozuText = ref<string>("扣1佛祖陪你笑")
 
-count.value = Number(window.localStorage.getItem("gongde"))
+const muyuVoice = new Audio('/mp3/muyu.mp3');
+const fozuVoice = new Audio('/mp3/fozu.wav')
 
-const play = () => {
-  window.localStorage.setItem("gongde", String(++count.value!))
-  const voice = new Audio('/mp3/muyu.mp3');
-  voice.play();
-  itmes.value.push(Math.random());
+const danmaku = (text: string) => {
+  items.value.push(text)
 
   setTimeout(() => {
-    itmes.value.shift()
-  }, 500);
+    items.value.shift()
+  }, 500)
 }
 
+const play = () => {
+  localStorage.setItem("gongde", String(++count.value))
+  muyuVoice.play();
+  danmaku("功德+1")
+}
+
+const laugh = () => {
+  if (Number(localStorage.getItem("gongde")) >= 10) {
+    count.value -= 10
+    localStorage.setItem("gongde", String(count.value))
+    danmaku("功德-10")
+    fozuVoice.play();
+  } else {
+    fozuText.value = "功德不足"
+    setTimeout(() => (fozuText.value = "扣1佛祖陪你笑"), 2000)
+  }
+}
+
+document.addEventListener('keypress', (event) => {
+  if (event.code === "Digit1") laugh()
+})
 </script>
 
 <template>
   <main>
     <div class="plus">
       <TransitionGroup tag="ul" name="list">
-        <li style="color: #e6b422" v-for="(item, index) in itmes" :key="item" :data-index="index">
-          功德+1
+        <li style="color: #e6b422" v-for="(item, index) in items" :key="item" :data-index="index">
+          {{ item }}
         </li>
       </TransitionGroup>
     </div>
     <div class="muyu" @mousedown="play"></div>
-    <div style="color: #e6b422;font-weight: bold;">
+    <div class="text">
       功德：{{ count }}
+    </div>
+    <div class="text" @mousedown="laugh">
+      {{ fozuText }}
     </div>
   </main>
 </template>
@@ -87,6 +110,11 @@ main {
     }
   }
 
-}
+  .text {
+    color: #e6b422;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
 
+}
 </style>
