@@ -9,7 +9,7 @@ const danmaku = (text: string) => {
   items.value.push({ id: Math.random(), text })
   setTimeout(() => {
     items.value.shift()
-  }, 500)
+  }, 300)
 }
 
 const play = () => {
@@ -59,7 +59,7 @@ document.addEventListener('keypress', (event) => {
 <style scoped lang="scss">
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 
 .list-enter-from,
